@@ -3,37 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Synapse Power | Real World AI Data Centre</title>
+<title>Synapse Power | XNAP Token</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-font-family:'Orbitron',sans-serif;
-background:black;
+body {
+margin:0;
+font-family:'Orbitron', sans-serif;
+background: black;
 color:#00ff88;
+text-align:center;
 overflow-x:hidden;
 }
 
-canvas{
+/* Background Data Centre */
+body::before{
+content:"";
 position:fixed;
 top:0;
 left:0;
+width:100%;
+height:100%;
+background:url('https://images.unsplash.com/photo-1581091215367-59ab6b4f6e9e?auto=format&fit=crop&w=1470&q=80');
+background-size:cover;
+background-position:center;
+opacity:0.15;
 z-index:-1;
 }
 
+/* Glow Text */
+.glow{
+text-shadow:0 0 15px #00ff88,0 0 30px #00ff88;
+}
+
 .hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:
-linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.95)),
-url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80');
+padding:120px 20px;
+}
+
+h1{
+font-size:60px;
+margin:0;
+}
+
+h2{
+font-weight:400;
+margin:20px 0;
+}
+
+button{
+background:linear-gradient(45deg,#00ff88,#00cc66);
+border:none;
+padding:15px 40px;
+font-size:20px;
+border-radius:40px;
+cursor:pointer;
+margin-top:20px;
+}
+
+section{
+padding:80px 20px;
+}
+
+.card{
+background:rgba(0,0,0,0.6);
+border:1px solid #00ff88;
+border-radius:20px;
+padding:30px;
+margin:20px auto;
+max-width:800px;
+}
+
+iframe{
+width:90%;
+height:500px;
+border:none;
+border-radius:20px;
+margin-top:30px;
+}
+
+/* Rain Effect */
+.rain{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+<h1 class="glow">Synapse Power</h1>
+<h2>Powering Real World Asset AI Data Centre Infrastructure</h2>
+<h2 id="price">Loading XNAP Price...</h2>
+<button onclick="window.open('https://www.dextools.io/app/bnb/pair-explorer/0x06518ebee08eee8d2a548b07610289ecbf19afc2','_blank')">
+Buy XNAP
+</button>
+</div>
+
+<section>
+<div class="card">
+<h2>About Synapse Power</h2>
+<p>
+Synapse Power is a Real World Asset AI Data Centre ecosystem powering GPU Compute, Mining Infrastructure, and decentralized asset-backed tokenization via XNAP.
+</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Live XNAP Chart</h2>
+
+<iframe src="https://www.dextools.io/widget-chart/en/bnb/pe-light/0x06518ebee08eee8d2a548b07610289ecbf19afc2?theme=dark"></iframe>
+
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Tokenomics</h2>
+<p>Total Supply: 100,000,000 XNAP</p>
+<p>Utility: AI Infrastructure, Data Centre Expansion, Mining Rewards</p>
+<p>Network: BNB Smart Chain</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Roadmap</h2>
+<p>Phase 1: AI Data Centre Setup</p>
+<p>Phase 2: GPU Expansion & Mining Deployment</p>
+<p>Phase 3: RWA Tokenization Integration</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>Join Synapse Power</h2>
+<button onclick="window.open('https://t.me/','_blank')">Join Community</button>
+</div>
+</section>
+
+<script>
+fetch('https://api.dexscreener.com/latest/dex/pairs/bsc/0x06518ebee08eee8d2a548b07610289ecbf19afc2')
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("price").innerHTML =
+"XNAP Price: $" + parseFloat(data.pair.priceUsd).toFixed(6);
+});
+</script>
+
+</body>
+</html>
 background-size:cover;
 background-position:center;
 }
