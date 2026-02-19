@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synapse Power | Real World AI Data Centre</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Orbitron',sans-serif;
+background:black;
+color:#00ff88;
+overflow-x:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:
+linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.95)),
+url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;
+background-position:center;
+}
+
+h1{
+font-size:3rem;
+background:linear-gradient(90deg,#00ff88,#00ffaa,#00ffcc);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:0 0 25px #00ff88;
+}
+
+.section{
+padding:80px 10%;
+}
+
+.card{
+background:rgba(0,255,136,0.05);
+border:1px solid #00ff88;
+padding:25px;
+border-radius:15px;
+margin:20px 0;
+box-shadow:0 0 20px rgba(0,255,136,0.3);
+}
+
+.btn{
+background:#00ff88;
+color:black;
+padding:15px 35px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 0 20px #00ff88;
+transition:0.3s;
+}
+
+.btn:hover{
+background:#00cc66;
+}
+
+#priceBox{
+margin-top:20px;
+font-size:1.5rem;
+}
+
+h2{
+margin-bottom:30px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="rain"></canvas>
+
+<section class="hero">
+<h1>Synapse Power</h1>
+<p>Powering The Future of Real World Asset AI Infrastructure</p>
+
+<div id="priceBox">Loading XNAP Price...</div>
+<br>
+
+<a href="https://www.dextools.io/app/bnb/pair-explorer/0x06518ebee08eee8d2a548b07610289ecbf19afc2" target="_blank">
+<button class="btn">Buy XNAP</button>
+</a>
+
+</section>
+
+<section class="section">
+<h2>About</h2>
+<div class="card">
+Synapse Power is a Real World Asset Data Centre project integrating GPU compute,
+AI infrastructure, mining ecosystem and the XNAP token to power decentralized AI economy.
+</div>
+</section>
+
+<section class="section">
+<h2>Benefits</h2>
+<div class="card">✔ Real GPU Data Centre Infrastructure</div>
+<div class="card">✔ AI + High Performance Compute</div>
+<div class="card">✔ Tokenized Mining Revenue</div>
+<div class="card">✔ Scalable Web3 Ecosystem</div>
+</section>
+
+<section class="section">
+<h2>Tokenomics</h2>
+<div class="card">
+Total Supply: 1,000,000,000 XNAP<br><br>
+40% Mining Rewards<br>
+30% Ecosystem Development<br>
+20% Liquidity<br>
+10% Team & Operations
+</div>
+</section>
+
+<section class="section">
+<h2>Roadmap</h2>
+<div class="card">
+Phase 1 – Data Centre Setup<br>
+Phase 2 – XNAP Token Launch<br>
+Phase 3 – AI Infrastructure Scaling<br>
+Phase 4 – Global Expansion
+</div>
+</section>
+
+<section class="section">
+<h2>Team</h2>
+<div class="card">
+Blockchain Engineers<br>
+AI Specialists<br>
+Infrastructure Operators
+</div>
+</section>
+
+<section class="section">
+<h2>Live XNAP Chart (BNB Chain)</h2>
+
+<iframe 
+src="https://www.dextools.io/widget-chart/en/bnb/pe-light/0x06518ebee08eee8d2a548b07610289ecbf19afc2?theme=dark"
+width="100%"
+height="500"
+frameborder="0">
+</iframe>
+
+</section>
+
+<script>
+
+// LIVE PRICE FROM DEXSCREENER
+async function getXNAPPrice(){
+try{
+const response=await fetch(
+"https://api.dexscreener.com/latest/dex/pairs/bsc/0x06518ebee08eee8d2a548b07610289ecbf19afc2"
+);
+const data=await response.json();
+const price=data.pair.priceUsd;
+const change=data.pair.priceChange.h24;
+
+document.getElementById("priceBox").innerHTML=
+"XNAP Price: $"+parseFloat(price).toFixed(6)+
+" | 24H: "+change+"%";
+}
+catch{
+document.getElementById("priceBox").innerHTML="Live price unavailable";
+}
+}
+
+getXNAPPrice();
+setInterval(getXNAPPrice,10000);
+
+
+// TOKEN RAIN EFFECT
+const canvas=document.getElementById("rain");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const tokens=["USDT","XNAP"];
+const drops=Array(120).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#00ff88";
+ctx.font="14px monospace";
+
+for(let i=0;i<drops.length;i++){
+const text=tokens[Math.floor(Math.random()*tokens.length)];
+ctx.fillText(text,i*20,drops[i]*20);
+
+if(drops[i]*20>canvas.height && Math.random()>0.95)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+
+setInterval(
